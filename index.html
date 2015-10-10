@@ -34,6 +34,9 @@
             render: function() {
               var props = this.props;
               var rows = props.episodes
+                .filter(function(episode) {
+                  return episode.title.toLowerCase().indexOf(props.filterText.toLowerCase()) > -1;
+                })
                 .map(function(episode){
                   return <EpisodeRow key={episode.title} episode={episode} />;
                 });
@@ -60,13 +63,19 @@
         });
 
 var SearchBar = React.createClass ({
+  handleChange: function () {
+    this.props.onFilterInput (
+      this.refs.filterTextInput.getDOMNode().value
+    );
+  },
+
   render: function() {
     return (
       <div className="row">
         <div className="col-lg-4 col-lg-offset-4">
           <div className="well">
             <h2 className="text-center">Youtube Playlist</h2>
-            <input type="search" className="form-control" placeholder="Search for a video" />
+            <input ref="filterTextInput" value={this.props.filterText} onChange={this.handleChange} type="search" className="form-control" placeholder="Search for a video" />
           </div>
         </div>
       </div>
@@ -75,11 +84,23 @@ var SearchBar = React.createClass ({
 }); 
 
 var FilterableEpisodeTable = React.createClass({
+  getInitialState: function () {
+    return {
+      filterText: ""
+    };
+  },
+
+  handleFilterInput: function(filterText) {
+    this.setState({
+      filterText: filterText
+    })
+  },
+
   render: function() {
     return (
       <div className="spacer">
-        <SearchBar />
-        <EpisodeTable episodes={this.props.episodes} />
+        <SearchBar onFilterInput={this.handleFilterInput} filterText={this.state.filterText} />
+        <EpisodeTable filterText={this.state.filterText} episodes={this.props.episodes} />
       </div>
     );
   }

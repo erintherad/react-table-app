@@ -231,4 +231,39 @@ var episodes = [
   id:"UC0KJrVR7lOqDTkH2S2tjo5Q"
 }];
 
-React.render(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
+var columns = [
+{
+  key: 'title',
+  label: 'User',
+},
+{
+  key: 'thumb_url_default',
+  label: 'Image'
+},
+{
+  key: 'views',
+  label: 'Views'
+},
+{
+  key: 'created_on',
+  label: 'Created on'
+},
+];
+
+var columnSorts = [
+{
+  column: 'title',
+  sortFunction: Reactable.Sort.CaseInsensitive
+},
+'views',
+{
+  column: 'created_on',
+  sortFunction: Reactable.Sort.Date
+}
+];
+
+// React.render(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
+
+
+var Table = Reactable.Table;
+React.render(<Table data={episodes} columns={columns} sortable={columnSorts} defaultSort={{column: 'title', direction: 'asc'}} />, document.getElementById('container'));

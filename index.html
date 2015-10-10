@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,138 +7,12 @@
   <link  href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
   <div id="container"></div>
   <!-- The core React library -->
   <script src="http://fb.me/react-0.11.1.js"></script>
   <!-- In-browser JSX transformer, remove when pre-compiling JSX. -->
   <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
 
-  <script type="text/jsx">
-  /** @jsx React.DOM */
-
-          var EpisodeRow = React.createClass({
-            render: function() {
-                return (
-                    <tr>
-                        <td>{this.props.episode.title}</td>
-                        <td><img className="img-responsive" src={this.props.episode.thumb_url_default}/></td>
-                        <td>{this.props.episode.views}</td>
-                        <td>{this.props.episode.created_on}</td>
-                    </tr>
-                );
-            }
-        });
-
-        var EpisodeTable = React.createClass({
-            render: function() {
-              var props = this.props;
-              var rows = props.episodes
-                .filter(function(episode) {
-                  return episode.title.toLowerCase().indexOf(props.filterText.toLowerCase()) > -1;
-                })
-                .map(function(episode){
-                  return <EpisodeRow key={episode.title} episode={episode} />;
-                });
-
-
-              return (
-                  <div className="row spacer">
-                    <div className="col-lg-4 col-lg-offset-4">
-                      <table width="100%" className="table">
-                          <thead>
-                              <tr>
-                                  <th>Title</th>
-                                  <th>Image</th>
-                                  <th>Views</th>
-                                  <th>Created on</th>
-                              </tr>
-                          </thead>
-                          <tbody>{rows}</tbody>
-                      </table>
-                    </div>
-                  </div>
-              );
-            }
-        });
-
-var SearchBar = React.createClass ({
-  handleChange: function () {
-    this.props.onFilterInput (
-      this.refs.filterTextInput.getDOMNode().value
-    );
-  },
-
-  render: function() {
-    return (
-      <div className="row">
-        <div className="col-lg-4 col-lg-offset-4">
-          <div className="well">
-            <h2 className="text-center">Youtube Playlist</h2>
-            <input ref="filterTextInput" value={this.props.filterText} onChange={this.handleChange} type="search" className="form-control" placeholder="Search for a video" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-}); 
-
-var FilterableEpisodeTable = React.createClass({
-  getInitialState: function () {
-    return {
-      filterText: ""
-    };
-  },
-
-  handleFilterInput: function(filterText) {
-    this.setState({
-      filterText: filterText
-    })
-  },
-
-  render: function() {
-    return (
-      <div className="spacer">
-        <SearchBar onFilterInput={this.handleFilterInput} filterText={this.state.filterText} />
-        <EpisodeTable filterText={this.state.filterText} episodes={this.props.episodes} />
-      </div>
-    );
-  }
-});       
-
-var episodes=[
-  {
-    thumb_url_default:"https://yt3.ggpht.com/-T0H7xR-9iA8/AAAAAAAAAAI/AAAAAAAAAAA/VA9CSBc5Q8A/s88-c-k-no/photo.jpg",
-    views:105689500,
-    created_on:"2011-02-17T13:38:27Z",
-    title:"psychicpebbles",
-    id:"UC--BMyA2X4a9PGAo3lTuopg"
-  },
-  {
-    thumb_url_default:"https://yt3.ggpht.com/-Aqz_Yc964cU/AAAAAAAAAAI/AAAAAAAAAAA/0SkTB3eIHL8/s88-c-k-no/photo.jpg",
-    views:229121344,
-    created_on:"2007-08-18T14:57:17Z",
-    title:"JustKiddingFilms",
-    id:"UC-A4oZF4AlOEdlyZWBCI0cQ"
-  },
-  {
-    thumb_url_default:"https://yt3.ggpht.com/-0b9t8DHdd-8/AAAAAAAAAAI/AAAAAAAAAAA/5xlL-R1Id1M/s88-c-k-no/photo.jpg",
-    views:25690295,
-    created_on:"2006-07-05T08:01:16Z",
-    title:"Blue Table Painting",
-    id:"UC-aSLyvFLGEmNFcGomzL47w"
-  },
-  {
-    thumb_url_default:"https://yt3.ggpht.com/-_9beDwBjMJ4/AAAAAAAAAAI/AAAAAAAAAAA/Jv6rGoAyoz0/s88-c-k-no/photo.jpg",
-    views:18483830,
-    created_on:"2012-03-02T15:51:06Z",
-    title:"dillongoo",
-    id:"UC-B06UJxJ20HYv15lzrm9mA"
-  }
-];
-
-        React.renderComponent(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
-
-  </script>
+  <script type="text/jsx" src="script.js"></script>
 </body>
 </html>

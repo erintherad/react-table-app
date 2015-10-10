@@ -265,5 +265,58 @@ var columnSorts = [
 // React.render(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
 
 
-var Table = Reactable.Table;
-React.render(<Table data={episodes} columns={columns} sortable={columnSorts} defaultSort={{column: 'title', direction: 'asc'}} />, document.getElementById('container'));
+var Table = Reactable.Table,
+    Tr = Reactable.Tr,
+    Td = Reactable.Td;
+
+var tableRows = [];
+for(var i = 0; i < episodes.length; i++) {
+  var episode = episodes[i];
+  tableRows.push(
+    <Tr>
+      <Td column="title">
+        {episode.title}
+      </Td>
+      <Td column="thumb_url_default">
+        <img className="img-responsive" src={episode.thumb_url_default}/>
+      </Td>
+      <Td column="views">
+        {episode.views}
+      </Td>
+      <Td column="created_on">
+        {episode.created_on}
+      </Td>
+    </Tr>
+  );
+}
+
+var doneRendering = function() {
+  $('.reactable-filter-input').addClass('form-control').attr('placeholder', 'Search for a user');
+};
+
+React.render(
+  <Table
+    className="table"
+    columns={columns}
+    sortable={columnSorts}
+    defaultSort={{column: 'title', direction: 'asc'}}
+    filterable={['title']}>
+    {tableRows}
+  </Table>,
+  document.getElementById('container'),
+  doneRendering
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

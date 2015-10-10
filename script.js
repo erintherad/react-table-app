@@ -231,4 +231,4 @@ var episodes = [
   id:"UC0KJrVR7lOqDTkH2S2tjo5Q"
 }];
 
-React.renderComponent(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
+React.render(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('container'));
